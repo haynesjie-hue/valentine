@@ -8,37 +8,40 @@
   <style>
     body {
       margin: 0;
-      min-height: 100vh;
-
-      /* Background image */
-      background: #000 url("Got it.jpg") no-repeat center;
-      background-size: 400px; /* ← CHANGE THIS NUMBER to resize image */
-
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
+      background-color: black;
     }
 
+    /* Background image layer */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("Got it.jpg") no-repeat center;
+      background-size: 400px; /* ← change image size here */
+      z-index: 0;
+    }
+
+    /* Card stays ABOVE the image */
     .card {
-      background: rgba(255, 255, 255, 0.88);
+      position: relative;
+      z-index: 1;
+      background: white;
       padding: 30px;
       border-radius: 20px;
       max-width: 420px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      backdrop-filter: blur(6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    h1 {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.1em;
-      margin-bottom: 25px;
-    }
+    h1 { margin-bottom: 10px; }
+    p { margin-bottom: 25px; }
 
     button {
       font-size: 1em;
@@ -56,9 +59,10 @@
     }
 
     #noBtn {
-      background: #fff;
+      background: white;
       color: #ff4d6d;
       position: relative;
+      border: 2px solid #ff4d6d;
     }
 
     button:hover {
@@ -66,15 +70,14 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
 
     .hearts {
       position: absolute;
       font-size: 20px;
       animation: float 5s linear infinite;
       opacity: 0.8;
+      z-index: 2;
     }
 
     @keyframes float {
@@ -135,14 +138,11 @@
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.animationDuration = 3 + Math.random() * 3 + "s";
         document.body.appendChild(heart);
-
         setTimeout(() => heart.remove(), 6000);
       }, 300);
     }
   </script>
 
 </body>
-</html>
-
 </html>
 
